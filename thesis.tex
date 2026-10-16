@@ -1,0 +1,198 @@
+\documentclass{thesisclass}
+% Based on thesisclass.cls of Timo Rohrberg, 2009
+% ----------------------------------------------------------------
+% Thesis - Main document
+% ----------------------------------------------------------------
+
+%% -------------------------------
+%% |   New Title Page Info       |
+%% -------------------------------
+
+% select your thesis type
+\newcommand{\docType}{1} % Options: 0 = Bachelor Thesis, 1 = Master Thesis, 2 = Practical Report
+\newcommand{\mainTitle}{Your Title}
+
+\newcommand{\authorName}{Giulia Boccuccia}
+
+\newcommand{\reviewerOneName}{Prof.\ Dr.-Ing.\ Samuel Kounev}
+\newcommand{\reviewerOneTask}{First Reviewer}
+
+% only required for Master's thesis
+\newcommand{\reviewerTwoName}{Prof.\ Dr.\ Dummy} % Always use backslashes after abbreviation to prevent LaTeX from treating the period as the end of a sentence, which would otherwise add incosistent extra horizontal spacing
+\newcommand{\reviewerTwoTask}{Second Reviewer}
+
+\newcommand{\advisorOneName}{Name Advisor 1}
+\newcommand{\advisorOneTask}{First Advisor}
+
+% if only one advisor remove next two lines
+\newcommand{\advisorTwoName}{Name Advisor 2}
+\newcommand{\advisorTwoTask}{Second Advisor}
+
+% if no external advisor remove next two lines
+%\newcommand{\advisorExtName}{Name External Advisor}
+%\newcommand{\advisorExtTask}{External Advisor}
+
+\newcommand{\submissionTime}{XX. Month 20YY}
+
+%% -------------------------------
+%% |  Information for PDF file   |
+%% -------------------------------
+\hypersetup{
+ pdfauthor={\authorName},
+ pdftitle={\mainTitle},
+ pdfsubject={\ifcase\docType Bachelor Thesis\or	Master Thesis\or Practical Report\fi},
+ pdfkeywords={Not set}
+}
+
+%% -------------------------------
+%% | Information for Declaration |
+%% -------------------------------
+\newcommand{\place}{Place}
+
+%% ---------------------------------
+%% | ToDo Marker - only for draft! |
+%% ---------------------------------
+% \todo{...} is provided by the todonotes package loaded in thesisclass.cls.
+% To disable all todos for the final version, load the package with the
+% "disable" option instead, e.g. \usepackage[disable]{todonotes}.
+% \usepackage[disable]{todonotes}
+
+
+%% --------------------------------
+%% | Old Marker - only for draft! |
+%% --------------------------------
+% Remove this section for final version!
+\newenvironment{deprecated}
+{\begin{color}{gray}}
+{\end{color}}
+
+
+%% --------------------------------
+%% | Settings for word separation |
+%% --------------------------------
+% Help for separation:
+% In german package the following hints are additionally available:
+% "- = Additional separation
+% "| = Suppress ligation and possible separation (e.g. Schaf"|fell)
+% "~ = Hyphenation without separation (e.g. bergauf und "~ab)
+% "= = Hyphenation with separation before and after
+% "" = Separation without a hyphenation (e.g. und/""oder)
+
+% Describe separation hints here:
+\hyphenation{
+% Pro-to-koll-in-stan-zen
+% Ma-na-ge-ment  Netz-werk-ele-men-ten
+% Netz-werk Netz-werk-re-ser-vie-rung
+% Netz-werk-adap-ter Fein-ju-stier-ung
+% Da-ten-strom-spe-zi-fi-ka-tion Pa-ket-rumpf
+% Kon-troll-in-stanz
+}
+
+% Make sure to include this before the begin of the document!
+\input{acronyms}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Here, main documents begins %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+% Choose language as required
+\selectlanguage{english}
+% \selectlanguage{ngerman}
+
+\frontmatter
+\pagenumbering{roman}
+\include{titlepage}
+\blankpage
+\let\mainlang\languagename
+\selectlanguage{english}
+\include{sections/0_abstract}
+\selectlanguage{ngerman}
+\include{sections/0_summary}
+\selectlanguage{\mainlang}
+
+
+%% -------------------
+%% |   Directories   |
+%% -------------------
+% set the table of contents depth (= section levels which should be included in TOC)
+\setcounter{tocdepth}{2}
+\selectlanguage{english}
+\tableofcontents
+\blankpage
+
+
+%% -----------------
+%% |   Main part   |
+%% -----------------
+\mainmatter
+\pagenumbering{arabic}
+\include{sections/1_introduction}
+\include{sections/2_background}
+\include{sections/3_relatedwork}
+\include{sections/4_approach}
+\include{sections/5_implementation}
+\include{sections/6_evaluation}
+\include{sections/7_conclusion}
+
+
+%% ----------------
+%% |   Listings   |
+%% ----------------
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\listfigurename}
+\listoffigures
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\listtablename}
+\listoftables
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\lstlistlistingname}
+\lstlistoflistings
+
+
+
+%% --------------------
+%% |   Acronyms   |
+%% --------------------
+\printacronyms[
+	name=\trans{Abkürzungsverzeichnis}{Acronyms},            % The title of the section
+	heading=chapter*
+	% display=all             Use this if all entries shall be printed regardless if they are used
+]
+\addcontentsline{toc}{chapter}{\trans{Abkürzungsverzeichnis}{Acronyms}}
+\markboth{\trans{Abkürzungsverzeichnis}{Acronyms}}{\trans{Abkürzungsverzeichnis}{Acronyms}}
+
+%% --------------------
+%% |   Bibliography   |
+%% --------------------
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{\bibname}
+
+\bibliographystyle{ieeetran_modified}
+
+\bibliography{thesis}
+
+%% ----------------
+%% |   Appendix   |
+%% ----------------
+\cleardoublepage
+
+\input{appendix}
+
+%% -------------------
+%% |   Declaration   |
+%% -------------------
+\cleardoublepage
+\todo{Dont forget the Versicherung zur Leistungserbringung, which is strictly required by the Pruefungsamt. Download and fill out the latest version from the Uni Wuerzburg Homepage (uni-wuerzburg.de). Go to Studium -> Pruefungsangelegenheiten -> Formulare -> Abschlussarbeiten / Hausarbeiten -> Versicherung zur Leistungserbringung. Maybe ask your supervisor for help.}
+
+
+\end{document}

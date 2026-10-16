@@ -1,0 +1,29 @@
+stages:
+  - build
+  - package
+
+compile_latex:
+  stage: build
+  image: texlive/texlive:latest
+  tags: [secloud]
+  script:
+    - latexmk -pdf -shell-escape -halt-on-error -interaction=nonstopmode thesis.tex
+    - latexmk -c
+  artifacts:
+    # Ensure artifact has a path so that the zipper finds it
+    paths:
+      - thesis.pdf
+    expire_in: 1 hour # One hour is sufficient as it is only required for the .zip
+
+zip_artifacts:
+  stage: package
+  image: alpine:latest
+  tags: [secloud]
+  script:
+    - apk add zip
+    - ZIP_NAME="thesis_template.zip"
+    - zip -r $ZIP_NAME . -x "$ZIP_NAME" ".git*" ".gitlab-ci.yml"
+  artifacts:
+    paths:
+      - thesis_template.zip
+    expire_in: 1 month

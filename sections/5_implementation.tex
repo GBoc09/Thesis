@@ -1,0 +1,77 @@
+%!TEX root = ../thesis.tex
+\chapter{\implementation}
+\label{ch:implementation}
+
+\begin{lstlisting}[language=erlang, frame=single, breaklines=true, numbers=left, caption={Hello World Program in Erlang.}]
+-module(hello).
+-export([hello_world/0]).
+
+hello_world() -> io:fwrite("hello, world\n").
+\end{lstlisting}
+
+\begin{lstlisting}[language=cpp, frame=single, breaklines=true, numbers=left, caption={Program in C++.}]
+#include <iostream>
+int main() {
+    std::cout << "Hello, World!" << std::endl;
+    this->run();
+    int a = 0;
+    if (a <= 5){
+        return 1;
+    }
+    // comment line
+    return 0;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=yaml, frame=single, breaklines=true, numbers=left, caption={YAML Example}]
+# A sample yaml file
+key: value
+array:
+  - item1
+  - item2:
+        anotherKey: anotherValue
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}[language=pseudo, frame=single, breaklines=true, numbers=left, caption={Pseudo Code Example}]
+items = [1,2,3]
+# Print each item in the list
+for i in items:
+    if i > 2:
+        print("MyItem: "+i)
+\end{lstlisting}
+
+
+
+\begin{lstlisting}[language=docker, frame=single, breaklines=true, numbers=left, caption={Dockerfile Example}]
+FROM python:3.13
+WORKDIR /usr/local/app
+
+# Install the application dependencies
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy in the source code
+COPY src ./src
+EXPOSE 8080
+
+# Setup an app user so the container doesn't run as the root user
+RUN useradd app
+USER app
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
+\end{lstlisting}
+
+\newpage
+
+\begin{lstlisting}[language=json, frame=single, breaklines=true, numbers=left, caption={JSON Example}]
+{
+    "key": "value",
+    "pair": [
+        "first": 0,
+        "second": "null"
+        # comment line
+    ]
+}
+\end{lstlisting}

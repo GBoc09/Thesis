@@ -1,0 +1,106 @@
+%!TEX root = thesis.tex
+
+\begin{titlepage}
+
+	\newgeometry{
+		margin=0mm,
+		noheadfoot,   % Removes space for header and footer
+		nomarginpar   % Removes space for marginal notes
+	}
+
+
+	\begin{tikzpicture}[remember picture,overlay]
+		%% Coordinates
+		\coordinate (text_pos) at (55mm, 0);
+		% Background Image
+		\node [inner sep=0pt] (background_img) at (15, -17) {\includegraphics[width=38cm]{logos/Marienberg_wuerzburg_verlauf.png}};
+		% White Sidebar
+		\node [fill=white, minimum width=82.6mm, minimum height=600mm] (box) at (current page.north west){};
+		% Unilogo
+		\node [inner sep=0pt] (uniwuelogo) at (12.98,-5) {\includegraphics[width=\paperwidth]{logos/unilogo4c_gross.png}};
+
+		%% ----- Titles -----
+		% Doc Type
+		\node [anchor=north west, inner sep=0pt, text width=170mm, align=flush left]
+		at ([shift={(55mm,-20mm)}]current page.north west){
+			\renewcommand{\baselinestretch}{1.5}
+			\huge\textsf{\textcolor{titlecolor}{
+					\ifcase\docType
+						Bachelor Thesis\or
+						Master Thesis\or
+						Practical Report
+					\fi
+				}}
+		};
+
+		% Title
+		\node [anchor=north west, inner sep=0pt, text width=130mm, align=flush left]
+		at ([shift={(57mm,-70mm)}]current page.north west){
+			\Huge\textsf{\textbf{\textcolor{titlecolor}{\mainTitle}}}
+		};
+
+		%% ----- Authors & Reviewers -----
+		\node [anchor=north west, inner sep=0pt, text width=120mm, align=flush left]
+		at ([shift={(55mm,-170mm)}]current page.north west) {
+			\setlength{\parindent}{0pt}%
+			\Large\textsf{\textcolor{titlecolor}{%
+					% --- Author ---
+					\textbf{\authorName} \\
+					\authorDepartment\\
+					\authorChair\\[1.5cm] % Spacing before supervisors
+					%
+					\ifnum\docType=2 % No Reviewers or advisors for practical report
+					\else
+						% --- Reviewer 1 ---
+						\textbf{\reviewerOneName} \\
+						\reviewerOneTask \\[\smallskipamount]
+						%
+						% --- Reviewer 2 ---
+						\ifdefined\reviewerTwoName
+							\textbf{\reviewerTwoName} \\
+							\reviewerTwoTask \\[\smallskipamount]
+						\fi
+						%
+						% --- Advisor 1 ---
+						\textbf{\advisorOneName} \\
+						\advisorOneTask \\[\smallskipamount]
+						%
+						% --- Advisor 2 ---
+						\ifdefined\advisorTwoName
+							\textbf{\advisorTwoName} \\
+							\advisorTwoTask \\[\smallskipamount]
+						\fi
+						%
+						% --- External Advisor ---
+						\ifdefined\advisorExtName
+							\textbf{\advisorExtName} \\
+							\advisorExtTask
+						\fi
+					\fi
+				}}%
+			%% If more names are needed, just add them here like above. Be aware that there must not be an empty newline inside, so use % like above
+		};
+
+
+
+
+		%% ----- Footer -----
+		% Date
+		\node [anchor=north west, inner sep=0pt, text width=60mm, align=flush left]
+		at ([shift={(57mm,-280mm)}]current page.north west){
+			\Large\textsf{\textcolor{titlecolor}{\textbf{Submission\\}\submissionTime}}
+		};
+
+		\node [anchor=north west, inner sep=0pt, text width=110mm, align=flush left]
+		at ([shift={(95mm,-285mm)}]current page.north west){
+			\hfill\Large\textsf{\textcolor{titlecolor}{\textbf{\webadress}}}
+		};
+
+	\end{tikzpicture}
+
+	\pagecolor{background}
+\end{titlepage}
+\restoregeometry
+
+\pagecolor{white}
+% \nopagecolor % If you have problems with a dark reader, try this option instead
