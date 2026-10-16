@@ -16,8 +16,19 @@
 		\node [inner sep=0pt] (background_img) at (15, -17) {\includegraphics[width=38cm]{logos/Marienberg_wuerzburg_verlauf.png}};
 		% White Sidebar
 		\node [fill=white, minimum width=82.6mm, minimum height=600mm] (box) at (current page.north west){};
-		% Unilogo
-		\node [inner sep=0pt] (uniwuelogo) at (12.98,-5) {\includegraphics[width=\paperwidth]{logos/unilogo4c_gross.png}};
+		% White band for both university logos.
+		\fill[white]
+			([shift={(41.3mm,-42mm)}]current page.north west)
+			rectangle ([shift={(0mm,-66mm)}]current page.north east);
+		\node [anchor=west, inner sep=0pt] (uniwuelogo)
+		at ([shift={(48mm,-54mm)}]current page.north west) {
+			\includegraphics[width=45mm]{logos/unilogo4cohne_mittel.jpg}
+		};
+		% The source PDF is a full page: crop its blank margins (in bp).
+		\node [anchor=west, inner sep=0pt] (torvergatalogo)
+		at ([shift={(110mm,-54mm)}]current page.north west) {
+			\includegraphics[width=65mm,trim=14bp 747bp 376bp 0bp,clip]{logos/torvergata_logo.pdf}
+		};
 
 		%% ----- Titles -----
 		% Doc Type
@@ -46,8 +57,13 @@
 			\Large\textsf{\textcolor{titlecolor}{%
 					% --- Author ---
 					\textbf{\authorName} \\
+					Matricola: \studentNumber \\[0.2cm]
+					\homeUniversity\\
+					\homeDepartment\\
+					\degreeProgramme\\[0.5cm]
+					\hostUniversity\\
 					\authorDepartment\\
-					\authorChair\\[1.5cm] % Spacing before supervisors
+					\authorChair\\[1cm] % Spacing before supervisors
 					%
 					\ifnum\docType=2 % No Reviewers or advisors for practical report
 					\else
